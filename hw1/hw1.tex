@@ -56,6 +56,22 @@
     \end{problem}
 
     \begin{proof}
+      We must show that $\E[Y]$ satisfies the two conditions for the uniqueness result for conditional expectations.
+
+      First, $\E[Y]$ is a constant, so $\E[Y] \in \sigma(X)$.
+
+      Next, we must show $\int_{A}^{} \E[Y] dP = \int_{A}^{} Y dP$ for all $A \in \sigma(X)$.
+
+      Let $A \in \sigma(X)$. Then for any Borel measurable set $B$, $\mathbbm{1}^{-1}_A(B) \in \{ \emptyset, A, A^c, \Omega \}$. $A \in \sigma(X)$ and
+      $X$ and $Y$ are independent. Therefore, $Y$ and $\mathbbm{1}_A$ are independent as well. Therefore,
+      \begin{align*}
+        \int_{A}^{} \E[Y] dP &= \E[Y] \int_{A}^{} dP \\
+        &= \E[Y] P(A) \\
+        &= \int_{\Omega}^{} Y \mathbbm{1}_A dP \quad \parbox{4cm}{by independence} \\
+        &= \int_{A}^{} Y dP
+      \end{align*}
+
+      Therefore, by the uniqueness of conditional expectations, $\E[Y] = \E[Y | \sigma(X)]$.
     \end{proof}
 
   \item
