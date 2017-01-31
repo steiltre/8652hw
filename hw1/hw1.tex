@@ -1,0 +1,92 @@
+%        File: hw1.tex
+%     Created: Tue Jan 31 07:00 AM 2017 C
+% Last Change: Tue Jan 31 07:00 AM 2017 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8652 Homework 1 }
+\date{2/8/17}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{esint}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{bbm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+%\newtheorem*{lemma}{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\lip}[1]{\mathop{\mathrm{Lip}}\left(#1\right)}
+\newcommand{\curl}{\mathrm{curl}}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}[1][]{\emph{Solution #1}}
+
+\algnewcommand{\Or}{\textbf{ or }}
+\algnewcommand{\And}{\textbf{ or }}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item
+    \begin{problem}
+      If $X$ and $Y$ are independent, show that $\E [Y|\sigma(X)] = \E[Y]$ for $Y \in L^1$.
+    \end{problem}
+
+    \begin{proof}
+    \end{proof}
+
+  \item
+    \begin{problem}
+      Suppose $\E [Y | \mathcal{G}] = X$ and $\E [ Y^2 | \mathcal{G}] = X^2$ for random variables $X$ and $Y$ with $Y \in L^2$. How must $X$ and $Y$
+      be related?
+    \end{problem}
+
+    \begin{solution}
+    \end{solution}
+
+  \item
+    \begin{problem}
+      Verify the claim on page 16 of the notes that, when a regular conditional probability kernel $Q( \cdot, \cdot)$ exists for $(\Theta,
+      \mathcal{F}, P)$ and $\mathcal{G}$, then, for any $Y \in \mathcal{F}$ with $\E [|Y|] < \infty$, a version of $\E[ Y | \mathcal{G}]$ is given by
+      \[ \int_{\Omega}^{} Y(\omega') Q(\omega, d \omega') .\]
+    \end{problem}
+
+    \begin{proof}
+    \end{proof}
+
+  \item
+    \begin{problem}
+      Given $(\Omega, \mathcal{F}, P)$, suppose $\mathcal{G}$ and $\mathcal{H}$ are sub $\sigma$-fields of $\mathcal{F}$. Is it necessarily true that,
+      for $X \in \mathcal{F}$ with $X \in L^1$,
+      \[ \E [ \E[X|\mathcal{G}] | \mathcal{H} ] = \E [ \E[X|\mathcal{H}] | \mathcal{G} ] ? \]
+    \end{problem}
+
+    \begin{solution}
+    \end{solution}
+\end{enumerate}
+\end{document}
+
+
