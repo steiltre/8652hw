@@ -81,16 +81,60 @@
     \end{problem}
 
     \begin{solution}
+      We must have that $X = Y$ a.s.
+
+      First, we notice that $X \in \mathcal{G}$ by definition. Therefore,
+      \[ \E[ XY | \mathcal{G}] = X \E[Y | \mathcal{G}] = X^2 .\]
+      So for any $A \in \mathcal{G}$,
+      \[ \int_{A}^{} XY dP = \int_{A}^{} X^2 dP .\]
+
+      With this, we have
+      \begin{align*}
+        \E[ (X-Y)^2 ] &= \int_{\Omega}^{} (X-Y)^2 dP \\
+        &= \int_{\Omega}^{} X^2 - 2XY + Y^2 dP \\
+        &= \int_{\Omega}^{} 2 (X^2 - XY) dP \\
+        &= 0
+      \end{align*}
+      because $\Omega \in \mathcal{G}$. Therefore, $X = Y$ a.s.
     \end{solution}
 
   \item
     \begin{problem}
-      Verify the claim on page 16 of the notes that, when a regular conditional probability kernel $Q( \cdot, \cdot)$ exists for $(\Theta,
+      Verify the claim on page 16 of the notes that, when a regular conditional probability kernel $Q( \cdot, \cdot)$ exists for $(\Omega,
       \mathcal{F}, P)$ and $\mathcal{G}$, then, for any $Y \in \mathcal{F}$ with $\E [|Y|] < \infty$, a version of $\E[ Y | \mathcal{G}]$ is given by
       \[ \int_{\Omega}^{} Y(\omega') Q(\omega, d \omega') .\]
     \end{problem}
 
     \begin{proof}
+      We must show the two properties that define versions of conditional expectations.
+
+      First, assume $Y = \sum_{i=1}^n c_i \mathbbm{1}_{A_i}$ is a simple function. Then for any $A \in \mathcal{G}$
+      \begin{align*}
+        \int_{A}^{} \int_{\Omega}^{} Y(\omega') Q(\omega, d\omega') dP &= \int_{A}^{} \sum_{i=1}^n c_i \int_{\Omega}^{} \mathbbm{1}_{A_i} (\omega')
+        Q(\omega, d\omega') dP \\
+        &= \sum_{i=1}^n c_i \int_{A}^{} Q(\omega, A_i) dP \\
+        &= \sum_{i=1}^n c_i P(A \cup A_i) \\
+        &= \sum_{i=1}^n c_i \int_{A}^{} \mathbbm{1}_{A_i} dP \\
+        &= \int_{A}^{} Y dP
+      \end{align*}
+
+      Also,
+      \begin{align*}
+        \int_{\Omega}^{} Y(\omega') Q(\omega, d\omega') &= \sum_{i=1}^n c_i \int_{\Omega}^{} \mathbbm{1}_{A_i}(\omega') Q(\omega, d\omega') \\
+        &= \sum_{i=1}^n c_i Q(\omega, A_i)
+      \end{align*}
+      is measurable because it is a finite sum of measurable functions (of $\omega$).
+
+      For general $Y$, let $Y_n$ be an increasing sequence of simple functions such that $Y_n \to Y$ a.s. Then by the monotone convergence theorem,
+      $\int_{\Omega}^{} Y(\omega') Q(\omega, d\omega')$ is measurable, and for any $A \in \mathcal{G}$,
+      \begin{align*}
+        \int_{A}^{} \int_{\Omega}^{} Y(\omega') Q(\omega, d\omega') dP &= \lim_{n \to \infty} \int_{A}^{} \int_{\Omega}^{} Y_n (\omega') Q(\omega,
+        d\omega') \\
+        &= \lim_{n \to \infty} \int_{A}^{} Y_n dP \\
+        &= \int_{A}^{} Y dP
+      \end{align*}
+
+      Thus, $\int_{\Omega}^{} Y(\omega') Q(\omega, d\omega')$ satisfies the necessary conditions and is a version of $\E[Y|\mathcal{G}]$.
     \end{proof}
 
   \item
@@ -101,6 +145,47 @@
     \end{problem}
 
     \begin{solution}
+
+      This is not true. Let $\Omega = \{a, b, c\}$, $\mathcal{F} = 2^\Omega$, and $P$ be the counting measure. Define the random variable $X$ by
+      \[ X(t) =
+        \begin{cases}
+          1 &\text{if } t = a \\
+          2 &\text{if } t = b \\
+          3 &\text{if } t = c \\
+        \end{cases}
+      \]
+
+      Let $\mathcal{G} = \{ \emptyset, \{a\}, \{b,c\}, \Omega \}$ and $\mathcal{H} = \{ \emptyset, \{b\}, \{a,c\}, \Omega \}$.
+
+      First, we will calculate $\E[X|\mathcal{G}]$. We must have
+      $\int_{\{a\}}^{} \E[ X|\mathcal{G}] dP = \int_{\{a\}}^{} X dP = 1$. Therefore, $\E[X|\mathcal{G}](a) = 1$.
+      We must also have
+      $\int_{\{b,c\}}^{} \E[ X|\mathcal{G} ] dP = \int_{\{b,c\}}^{} X dP = 5$. Therefore, $\E[X|\mathcal{G}](b) + \E[X|\mathcal{G}](c) = 5$. In order
+      to have $\E[X|\mathcal{G}] \in \mathcal{G}$, we need $\E[X|\mathcal{G}](b) = \E[X|\mathcal{G}](c) = 2.5$.
+
+      To summarize,
+      \[ \E[X|\mathcal{G}](t) =
+      \begin{cases}
+        1 &\text{if } t = a \\
+        2.5 &\text{if } t \in \{b,c\}
+      \end{cases}
+      \]
+
+      Using the same reasoning, we get
+      \[ \E[X|\mathcal{H}](t) = 2 \]
+      for all $t$.
+
+      By repeating these calculations on the new random variables we have created, we get
+      \[ \E[ \E[X | \mathcal{G}] | \mathcal{H}](t) =
+      \begin{cases}
+        1.75 &\text{if } t \in \{a,c\} \\
+        2.5 &\text{if } t = b
+      \end{cases}
+      \]
+      and
+      \[ \E[ \E[X | \mathcal{H} | \mathcal{G}](t) = 2 \quad \text{for all } t. \]
+      Therefore, $\E[ \E[X|\mathcal{G}] | \mathcal{H}] \neq \E[ \E[X| \mathcal{H}] | \mathcal{G}]$.
+
     \end{solution}
 \end{enumerate}
 \end{document}
