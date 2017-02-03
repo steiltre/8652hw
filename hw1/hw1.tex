@@ -63,7 +63,7 @@
       Next, we must show $\int_{A}^{} \E[Y] dP = \int_{A}^{} Y dP$ for all $A \in \sigma(X)$.
 
       Let $A \in \sigma(X)$. Then for any Borel measurable set $B$, $\mathbbm{1}^{-1}_A(B) \in \{ \emptyset, A, A^c, \Omega \}$. $A \in \sigma(X)$ and
-      $X$ and $Y$ are independent. Therefore, $Y$ and $\mathbbm{1}_A$ are independent as well. Therefore,
+      $X$ and $Y$ are independent. Therefore, $Y$ and $\mathbbm{1}_A$ are independent as well. So we have
       \begin{align*}
         \int_{A}^{} \E[Y] dP &= \E[Y] \int_{A}^{} dP \\
         &= \E[Y] P(A) \\
@@ -71,7 +71,7 @@
         &= \int_{A}^{} Y dP
       \end{align*}
 
-      Therefore, by the uniqueness of conditional expectations, $\E[Y] = \E[Y | \sigma(X)]$.
+      Therefore, by the uniqueness of conditional expectations, $\E[Y] = \E[Y | \sigma(X)]$ a.s.
     \end{proof}
 
   \item
@@ -125,7 +125,11 @@
       \end{align*}
       is measurable because it is a finite sum of measurable functions (of $\omega$).
 
-      For general $Y$, let $Y_n$ be an increasing sequence of simple functions such that $Y_n \to Y$ a.s. Then by the monotone convergence theorem,
+      For general $Y$, we split $Y$ into its positive and negative components. For simplicity, we will assume $Y \geq 0$ and only show the argument
+      for the positive piece, but the same argument holds for the negative component.
+
+      Let $Y_n$ be an increasing sequence of simple functions such that $Y_n \to Y$ a.s. Because $Y \geq 0$ and $Q(\omega, A) \in [0,1]$, we have an
+      increasing sequence of functions and can apply the monotone convergence theorem to get
       $\int_{\Omega}^{} Y(\omega') Q(\omega, d\omega')$ is measurable, and for any $A \in \mathcal{G}$,
       \begin{align*}
         \int_{A}^{} \int_{\Omega}^{} Y(\omega') Q(\omega, d\omega') dP &= \lim_{n \to \infty} \int_{A}^{} \int_{\Omega}^{} Y_n (\omega') Q(\omega,
