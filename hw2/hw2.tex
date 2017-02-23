@@ -104,7 +104,26 @@
 
       \begin{enumerate}
         \item
-          Write $X_n = X_0 + \sum_{i=1}^n (X_n - X_{n-1})$.
+          We will need the following:
+          \begin{lemma}
+            Let $n,k>0$. Then
+            \[ \E[ M_{n+k} | \mathcal{F}_n ] = X_n .\]
+          \end{lemma}
+          \begin{proof}
+            We will prove this by induction on $k$. By definition,
+            \[ \E[ M_{n+1} | \mathcal{F}_n ] = X_n ,\]
+            giving our base case.
+
+            Let $k>1$. Then
+            \begin{align*}
+              \E[ M_{n+k} | \mathcal{F}_n ] &= \E[ \E[ M_{n+k} | \mathcal{F}_{n+k-1} ] | \mathcal{F}_n ] \quad \parbox{5cm}{because $\mathcal{F}_n
+              \subset \mathcal{F}_{n+k-1}$} \\
+              &= \E[ M_{n+k-1} | \mathcal{F}_n ] \quad \parbox{5cm}{by definition of a martingale} \\
+              &= X_n \quad \parbox{5cm}{by induction}
+            \end{align*}
+
+            Thus we have the result.
+          \end{proof}
       \end{enumerate}<++>
 
     \end{solution}
