@@ -102,6 +102,11 @@
 
     \begin{solution}
 
+      \begin{enumerate}
+        \item
+          Write $X_n = X_0 + \sum_{i=1}^n (X_n - X_{n-1})$.
+      \end{enumerate}<++>
+
     \end{solution}
 
   \item
@@ -110,6 +115,29 @@
     \end{problem}
 
     \begin{solution}
+
+      This is true.
+
+      Let $\{ \xi_i \}$ be independent random variables with $P(\xi_i = i^2) = \frac{1}{i^2}$ and $P \left( \xi_i = -\frac{i^2}{i^2-1} \right) = 1 -
+      \frac{1}{i^2}$. Notice $E[ \xi_i ] = 0$. We also know
+      \begin{align*}
+        \sum_{i=1}^\infty P( \xi_i = i^2 ) &= \sum_{i=1}^\infty \frac{1}{i^2} \\
+        &< \infty
+      \end{align*}
+
+      Therefore, by Borel-Cantelli, $P(\xi_i = i^2 \text{ i.o.}) = 0$ a.s. This means ${ \xi_i = -\frac{i^2}{i^2 - 1} \leq -1 }$ for all but finitely many $i$ a.s.
+
+      By defining
+      \[ X_n = \sum_{i=1}^n \xi_i ,\]
+      we then have $X_n \to -\infty$ a.s. as $n \to \infty$. Let $\mathcal{F}_n = \sigma(X_1, \dots, X_n)$. Then for any $n$,
+      \begin{align*}
+        \E[ X_{n+1} | \mathcal{F}_n ] &= \E[ X_n + \xi_{n+1} | \mathcal{F}_n ] \\
+        &= X_n + \E[ \xi_{n+1} | \mathcal{F}_n ] \quad \parbox{5cm}{because $X_n \in \mathcal{F}_n$} \\
+        &= X_n + \E[ \xi_{n+1} ] \quad \parbox{5cm}{because the $\xi_i$ are independent} \\
+        &= X_n
+      \end{align*}
+
+      Therefore, $\{ X_n, \mathcal{F}_n \}$ is a martingale such that $X_n \to -\infty$ a.s.
 
     \end{solution}
 
