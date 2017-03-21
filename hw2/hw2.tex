@@ -157,7 +157,7 @@
           Define $X_n = M_n - M_{n-1}$ for $n \geq 1$ with the convention $M_0 = 0$. First, we will show the increments $X_n$ are perpendicular in
           $L^2$. Let $i > j$. Then
           \begin{align*}
-            \E[ X_i X_j ] &= \E [ \E[ S_i S_j | \mathcal{F}_{j} ] \\
+            \E[ X_i X_j ] &= \E [ \E[ X_i X_j | \mathcal{F}_{j} ] \\
             &= \E[ X_j \E[ X_i | \mathcal{F}_j ] ] \quad \parbox{5cm}{because $M_j, M_{j-1} \in \mathcal{F}_j$} \\
             &= \E[ X_j \E[ M_i - M_{i-1} | \mathcal{F}_j ]] \\
             &= \E[ 0 ] \quad \parbox{6cm}{by the lemma above because $i-1 \geq j$} \\
@@ -165,7 +165,7 @@
           \end{align*}
 
           Write $M_n = \sum_{i=1}^n X_i$. Because the $X_i$ are orthogonal, we have
-          \[ \E[ (M_n)^2 = \|M_n\|_{L^2}^2 = \sum_{i=1}^n \|X_i\|_{L^2}^2 .\]
+          \[ \E[ (M_n)^2] = \|M_n\|_{L^2}^2 = \sum_{i=1}^n \|X_i\|_{L^2}^2 .\]
           Similarly, for $m<n$, we have $M_n - M_m = \sum_{i=m+1}^n X_i$ and
           \[ \| M_n - M_m \|_{L^2}^2 = \sum_{i=m+1}^n \|X_i\|_{L^2}^2 .\]
           Because $\sup_n \E [(M_n)^2] < \infty$, with a use of the triangle inequality, we have
@@ -177,14 +177,19 @@
         \item
           By part (a), we have that the sequence $\{M_n\}$ is a Cauchy sequence in $L^2$. Because $L^2$ is complete, we have $M_n \to M$ in $L^2$ for
           some $M \in L^2$. We will show that $\E[ M | \mathcal{F}_n ] = M_n$ for any $n$.
+
+          Take $A \in \mathcal{F}_n$. Because $P(\Omega)=1$ and $M_n \to M$ in $L^2(\Omega)$, we know $M_n \to M$ in
+          $L^1(\Omega)$. Then $M_n \to M$ in $L^1(A)$ since $A \subset \Omega$. Therefore,
           \begin{align*}
-            \E[ M | \mathcal{F}_n ] &= \E[ \lim_{k \to \infty} M_k | \mathcal{F}_n] \\
-            &= \lim_{k \to \infty} \E[ M_k | \mathcal{F}_n ]
+            \int_{A}^{} \E[ M | \mathcal{F}_n] dP &= \int_{A}^{} M dP \\
+            &= \lim_{k \to \infty} \int_{A}^{} M_k dP \quad \parbox{5cm}{by $L^1$ convergence} \\
+            &= \lim_{k \to \infty} \int_{A}^{} \E[ M_k | \mathcal{F}_n ] dP \quad \parbox{5cm}{because $A \in \mathcal{F}_n$} \\
+            &= \lim_{k \to \infty} \int_{A}^{} M_n dP \quad \parbox{5.5cm}{because $\E[ M_k | \mathcal{F}_n ] = M_n$ for $k \geq n$ (previous Lemma)}
+            \\
+            &= \int_{A}^{} M_n dP
           \end{align*}
-          Where we have used the fact that $P(A) \leq 1$ for any $A \in \mathcal{F}_n$ and $M_k \to M$ in $L^2$, so $M_k \to M$ in $L^1$ as well.
-          Using the fact that $\E[ M_k | \mathcal{F}_n ] = M_n$ for any $k \geq n$ by the Lemma in part (a), we then get
-          \[ \E[ M | \mathcal{F}_n ] = M_n \]
-          as was desired.
+
+          By definition, we know $M_n \in \mathcal{F}_n$. Therefore, $M_n = \E [M | \mathcal{F}_n]$ and $\{M_n, \mathcal{F}_n \}$ is closed.
       \end{enumerate}
 
     \end{solution}
