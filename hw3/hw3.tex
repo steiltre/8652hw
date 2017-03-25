@@ -95,7 +95,7 @@
         &= Z_n
       \end{align*}
 
-      Because $Z_n$ is a martingale, it converges almost surely. Also, for any $n$, $\E[ Z_{n+1} | \mathcal{F}_0 ] = Z_0$, so
+      Notice that $Z_n$ is bounded by 1 for all $n$ and is therefore in $L^1$. Because $Z_n$ is an $L^1$ martingale, it converges almost surely. Also, for any $n$, $\E[ Z_{n+1} | \mathcal{F}_0 ] = Z_0$, so
       \begin{align*}
         \E[Z_n] &= \E[ \E[ Z_n | \mathcal{F}_0 ] \\
         &= \E[ Z_0 ] \\
@@ -113,15 +113,58 @@
     \end{problem}
 
     \begin{solution}
+
+      Because $X_n$ is uniformly integrable, we know $X_n \to X$ a.s. and in $L^1$. By an inductive argument, we know $\E[ X_{n+m} | \mathcal{F}_n]
+      \leq X_n$ for any $m \geq 0$. For any $n$ and any $A \in \mathcal{F}_n$, we then have
+      \begin{align*}
+        X_n \geq \int_{A}^{} X_{n+m} dP
+      \end{align*}
+
+      By the $L^1$ convergence, we have
+      \begin{align*}
+        X_n &\geq \lim_{m \to \infty} \int_{A}^{} X_{n+m} dP \\
+        &= \int_{A}^{} X dP
+      \end{align*}
+
+      Therefore,
+      \[ X_n \geq \E[X | \mathcal{F}_n], \]
+      and $\{X_n, \mathcal{F}_n\}$ is a closed supermartingale.
+
+      The converse is not always true. Consider ``double or nothing'', that is, let $\xi_i$ be independent random variables with $P(\xi_i = 0) =
+      P(\xi_i = 2) = \frac{1}{2}$. Define
+      \[ X_n = \prod_{i=1}^n \xi_i \]
+      and let $\mathcal{F}_n$ be the natural history.
+
+      $\{ X_n, \mathcal{F}_n \}$ is a martingale and therefore is also a supermartingale. $X_n \geq 0$, so it is closed by 0 as a supermartingale.
+
+      For any $n$, $\E[X_n] = 1$. If we let $A_n = \{X_n > 0\}$, we have $P(A_n) = 2^{-n}$, and $X = 2^n$ on $A_n$. So for any $\delta$, let $n$ be
+      such that $\delta > 2^{-n}$. Then we have $P(A_n) < \delta$, but $\int_{A_n}^{} |X_n| dP > \frac{1}{2}$. Thus, $\{ X_n \}$ is not uniformly
+      integrable.
+
     \end{solution}
 
   \item
     \begin{problem}
-      Let $\{ Xn, \mathcal{F}_n \}$ be a positive reversed submartingale. Then, does $\lim_{n \to \infty} X_n$ exist (as a finite limit)? Same
+      Let $\{ X_n, \mathcal{F}_n \}$ be a positive reversed submartingale. Then, does $\lim_{n \to -\infty} X_n$ exist (as a finite limit)? Same
       question, but where $\{ X_n, \mathcal{F}_n \}$ is instead a supermartingale.
     \end{problem}
 
     \begin{solution}
+
+      By the Doob decomposition, we can write $X_n = M_n + A_n$ where $M_n$ is a reversed martingale and $A_n$ decreases as $n \to -\infty$ and is
+      predictable. (We only proved this for supermartingales, but the same proof holds for reversed submartingales.)
+
+      Because $M_n$ is a reversed martingale, $M_n \to M$ a.s. by the reversed martingale convergence theorem.
+
+      If $A_n < -M_n$ for any $n$ (at any point $\omega \in \Omega$), then $X_n = M_n + A_n < 0$, which contradicts the positivity of $X_n$.
+      Therefore, $A_n \geq -M_n$. Since $M_n$ converges to a finite limit a.s., $A_n$ must be bounded from below a.s. Therefore, $A_n$ is a decreasing sequence
+      (as $n \to -\infty$) which is bounded from below a.s. Thus, $A_n$ converges a.s.
+
+      Because $M_n$ and $A_n$ converge to finite limits a.s., $X_n$ does as well.
+
+      This result does not hold for positive reversed supermartingales. Let $X_n = -n$. Then
+      \[ \E[ X_{n+1} | \mathcal{F}_n ] = -(n+1) \leq n = X_n .\]
+      For negative values of $n$, $X_n$ is clearly positive. However, $X_n \to \infty$ as $n \to -\infty$.
     \end{solution}
 \end{enumerate}
 \end{document}
