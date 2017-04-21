@@ -61,22 +61,60 @@
 \begin{enumerate}
   \item
     \begin{problem}
-      Suppose $S_n = X_1 + \dots + X_n$, where $X_k$ are symmetric IID random variables with $P(X_k=1) = \frac{1}{3}$ adn $P(X_k \leq x) =
+      Suppose $S_n = X_1 + \dots + X_n$, where $X_k$ are symmetric IID random variables with $P(X_k=1) = \frac{1}{3}$ and $P(X_k \leq x) =
       \frac{x+1}{6}$ for $x \in [4,5]$. Estimate $P(S_{200} \in [0,2])$. Does the density of $S_{200}$ exist at $x = 0$? If so, compute it.
     \end{problem}
 
     \begin{solution}
 
+      Because $X$ has mean zero and is symmetric, we can calculate
+      \begin{align*}
+        \sigma^2 &= \frac{2}{3} + 2 \int_{4}^{5} \frac{1}{6} x^2 dx \\
+        &= \frac{2}{3} + \frac{61}{9} \\
+        &= \frac{67}{9}
+      \end{align*}
+
+      $X_k$ takes values between -5 and 5. Therefore, $0 < \sigma^2 < \infty$. Applying the local central limit theorem with $x_n = 0$ for all $n$ and
+      $a=0, b=2$, we have
+      \[ \sqrt{n} P (S_n \in [a,b]) \to (b-a) .\]
+      Therefore, we estimate
+      \[ P(S_{200} \in [0,2]) \approx 20 \sqrt{2} .\]
+
     \end{solution}
 
   \item
     \begin{problem}
-      Suppose $X_1, X_2, \dots$ are IID Bernoullie random variables with unknown mean $p$. There are two compeing hypotheses, that $p= .25$ and that
+      Suppose $X_1, X_2, \dots$ are IID Bernoulli random variables with unknown mean $p$. There are two competing hypotheses, that $p= .25$ and that
       $p = .253$, and you are given $\sum_{k=1}^{10^6} X_k$. What cutoff for this sum should you use for selecting one value of $p$ or the other?
       Using this cutoff, what is the approximate probability of you being wrong?
     \end{problem}
 
     \begin{solution}
+
+      Let $H_1$ be the hypothesis $p = .25$. Let $H_2$ be the hypothesis $p = .253$. We want a $\lambda$ that allows us to choose one of these
+      hypotheses based on whether $S_n = \sum_{k=1}^n X_k > \lambda n$ or not.
+
+      Using large deviations, the probability of being incorrect with
+      the conclusion that $p = .25$ is
+      \[ P( S_n > \lambda n | H_1 ) \approx (\varphi_{0.25}(\lambda))^n \]
+      because $0.25$ corresponds to the hypothesis that $p$ is smaller. Similarly,
+      \[ P( S_n < \lambda n | H_2 ) \approx (\varphi_{0.253}(\lambda))^n .\]
+
+      We want these probabilities of error in either direction to be approximately equal, so we set
+      \begin{align*}
+        \varphi_{.25} &= \varphi_{.253} \\
+        \left( \frac{.25}{\lambda} \right)^\lambda \left( \frac{.75}{1-\lambda} \right)^{1-\lambda} &= \left( \frac{.253}{\lambda} \right)^\lambda
+        \left( \frac{.747}{1-\lambda} \right)^{1-\lambda}
+      \end{align*}
+
+      Solving for $\lambda$, we have
+      \[ \lambda = \frac{\log \left(\frac{.75}{.747} \right)}{ \log \left( \frac{.253}{.25} \right) + \log \left( \frac{.75}{.747} \right) } \approx
+      .2515 .\]
+
+      Because $.253 = .25 + .003$, we can use an approximation from class to say
+      \[ \log \varphi(\lambda) = \frac{-2(.003)^2}{3} + O(t^3) .\]
+      Therefore, with this $\lambda$, our probability of being incorrect is approximately given by $e^{\frac{-2(.003)^2}{3} n}$. With the value of $n$
+      given, this is $e^{\frac{-2(.003)^2}{3} \cdot 10^6} \approx .0025$.
 
     \end{solution}
 
@@ -92,6 +130,14 @@
 
     \begin{solution}
 
+      \begin{enumerate}
+        \item It is possible to have these return times for a Markov chain. See the attachment at the end to see a possible flow chart.
+
+        \item This is not a possible set of return times. The greatest common divisor of these times is 1. By a result from class, we know a Markov
+          chain with a state $i$ that has period 1 will satisfy $p_{ii}^n > 0$ for large enough $n$. This sequence has increments of 3, so it cannot
+          be the return times for a state in a Markov chain.
+      \end{enumerate}
+
     \end{solution}
 
   \item
@@ -101,6 +147,30 @@
     \end{problem}
 
     \begin{solution}
+
+      Define the random variable
+      \[ Y_n = S_n( S_n - 7) - n = S_n^2 - 7S_n - n .\]
+
+      Let $\mathcal{F}_n$ be the natural history. Then
+      \begin{align*}
+        \E[ Y_n | \mathcal{F}_{n-1} ] &= \frac{1}{2} (S_{n-1} - 1)^2 + \frac{1}{2} (S_{n-1} + 1)^2 - \frac{7}{2} (S_{n-1} - 1) - \frac{7}{2} (S_{n-1}
+        + 1) - n \\
+        &= S_{n-1}^2 + 1 - 7 S_{n-1} - n \\
+        &= S_{n-1}^2 - 7 S_{n-1} - (n-1) \\
+        &= Y_{n-1}.
+      \end{align*}
+
+      Therefore, $\{Y_n, \mathcal{F}_n \}$ is a martingale. We are interested in when $S_n \in \{0, 7\}$, which corresponds to $Y_n = -n$. With this
+      motivation, we define the stopping time
+      \[ T = \inf \{ n : Y_n = -n \} .\]
+      We notice that by definition of $T$, $Y_T = -T$. As was done in class, we can apply the Optional Sampling Theorem to symmetric random walks by
+      applying the cutoff $T \wedge n$. This gives
+      \begin{align*}
+        \E[T] &= - \E[Y_T] \\
+        &= - \E[Y_0] \\
+        &= - S_0 (S_0 - 7) \\
+        &= 12
+      \end{align*}
 
     \end{solution}
 \end{enumerate}
